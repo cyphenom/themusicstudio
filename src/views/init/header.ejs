@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Teacher <%= pageName %> Page</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.2/datatables.min.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css">
+    <link rel="stylesheet" type="text/css" href="/header.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js">
+    </script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.2/datatables.min.js"></script>
+    <script type="module" src="/utils.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("#dismiss, .overlay").click(function () {
+                $(".sidebar").removeClass('__active');
+                $('.overlay').removeClass('active');
+            });
+
+            $("#activate").click(function () {
+                $(".sidebar").addClass('__active');
+                $(".overlay").addClass('active');
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="sidebar p-0">
+                <div id="dismiss">
+                    <i class="fas fa-window-close fa-2x text-white"></i>
+                </div>
+                <div>
+                    <h3 class="text-light text-center p-2">Music Studio&nbsp;&nbsp;&nbsp;</h3>
+                    <h5 href="#" class="text-light text-center">Hello, <%= name.slice(0, 6) %></h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    <% icons = ["fas fa-chart-line", "fas fa-calendar-alt", "fas fa-users", "fas fa-credit-card"] %>
+                    <% var i = 0 %>
+                    <% fs.readdirSync('src/views/teacher').forEach(file => { %>
+                    <a href="<%= file.slice(0, -4) %>"
+                        class="list-group-item text-light sidebar-link <%= (pageName.toLowerCase() == file.slice(0, -4) ? "sidebar-active" : "") %>"><i
+                            class="<%= icons[i] %>"></i><span
+                            id="link-text">&nbsp;&nbsp;<%= file.toUpperCase().slice(0, -4) %></span></a>
+                    <%    i++; %>
+                    <% }); %>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-lg-12 bg-primary pt-2 justify-content-between d-flex">
+                        <a href="#" class="text-white" id="activate">
+                            <h3><i class="fas fa-bars"></i></h3>
+                        </a>
+                        <h4 class="text-light">Teacher <%= pageName %> Page</h4>
+                        <a href="/teacher/logout" class="text-light mt-1"><i
+                                class="fas fa-sign-out-alt"></i>&nbsp;Logout</a>
+                    </div>
+                </div>
+                <div class="overlay"></div>

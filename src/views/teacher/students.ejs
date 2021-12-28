@@ -1,0 +1,81 @@
+<%- include('../init/header.ejs') %>
+
+<div class="col-lg-12">
+    <form action="#" method="POST" class="pt-3" id="studentForm">
+        <input type="hidden" id="_id" value="">
+        <div class="row">
+            <div class="col">
+                <label class="m-1">Name</label>
+                <input type="text" class="form-control" name="name" id="name" required>
+            </div>
+            <div class="col">
+                <label class="m-1">Birth date</label>
+                <input type="date" class="form-control" name="birth_date" id="birth-date" required>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col">
+                <label class="m-1">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required>
+            </div>
+            <div class="col">
+                <label class="m-1">Password</label>
+                <input type="text" class="form-control" name="password" id="password">
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col">
+                <label class="m-1">Phone Number</label>
+                <input type="text" class="form-control" name="phone_number" id="phone-number" required>
+            </div>
+            <div class="col">
+                <label class="m-1">Sex</label>
+                <select name="sex" id="sex" class="form-control">
+                    <option value="male" id="male">Male</option>
+                    <option value="female" id="female">Female</option>
+                </select>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col">
+                <label class="m-1">Address</label>
+                <input type="text" class="form-control" name="address" id="address" required>
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col">
+                <input type="button" class="btn btn-light btn-block" id="resetBtn" value="Reset">
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-success btn-block" id="createUserBtn" value="Create User">
+            </div>
+        </div>
+    </form>
+    <div class="pt-3">
+        <div class="table-responsive" id="studentsTable">
+            <table class="table table-striped table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>Name</th>
+                        <th>Birth date</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                        <th>Phone number</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody id="showStudents">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script type="module" src="/students.js"></script>
+</body>
+
+</html>
