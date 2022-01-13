@@ -1,0 +1,76 @@
+<%- include('../init/header.ejs') %>
+
+<div class="col-lg-12">
+    <form action="#" method="POST" class="pt-3" id="scheduleForm">
+        <input type="hidden" id="_id" value="">
+        <div class="row pt-2">
+            <div class="col">
+                <label class="m-1">Name</label>
+                <input type="text" class="form-control" name="name" id="name" required readonly>
+            </div>
+            <div class="col">
+                <label class="m-1">Email</label>
+                <input type="email" class="form-control" name="email" id="email" required readonly>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col">
+                <label class="m-1">Day</label>
+                <select name="day" id="day" class="form-control">
+                    <option value="monday" id="monday">Monday</option>
+                    <option value="tuesday" id="tuesday">Tuesday</option>
+                    <option value="wednesday" id="wednesday">Wednesday</option>
+                    <option value="thursday" id="thursday">Thursday</option>
+                    <option value="friday" id="friday">Friday</option>
+                    <option value="saturday" id="saturday">Saturday</option>
+                    <option value="sunday" id="sunday">Sunday</option>
+                </select>
+            </div>
+        </div>
+        <div class="row pt-2">
+            <div class="col">
+                <label class="m-1">Starting Time</label>
+                <input type="time" class="form-control" name="start" id="start" required>
+            </div>
+            <div class="col">
+                <label class="m-1">Ending Time</label>
+                <input type="time" class="form-control" name="end" id="end" required>
+            </div>
+        </div>
+        <div class="row pt-4">
+            <div class="col">
+                <input type="button" class="btn btn-light btn-block" id="resetBtn" value="Reset">
+            </div>
+            <div class="col">
+                <input type="submit" class="btn btn-warning btn-block" id="editScheduleBtn" value="Edit Schedule">
+            </div>
+        </div>
+    </form>
+    <div class="pt-3">
+        <div class="table-responsive" id="schedulesTable">
+            <table class="table table-striped table-bordered text-center">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Day</th>
+                        <th>Staring time</th>
+                        <th>Ending time</th>
+                        <th>Duration</th>
+                    </tr>
+                </thead>
+                <tbody id="showSchedules">
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+<script type="module" src="/schedules.js"></script>
+</body>
+
+</html>
