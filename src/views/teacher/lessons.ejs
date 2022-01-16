@@ -1,0 +1,32 @@
+<%- include('../init/header.ejs') %>
+
+    <div class="col-lg-12">
+        <div class="row pt-3">
+            <div class="col">
+                <input type="date" class="form-control" name="date" id="date" required>
+            </div>
+            <div class="col">
+                <select name="day" id="day" class="form-control">
+                    <option value="monday" id="monday">Monday</option>
+                    <option value="tuesday" id="tuesday">Tuesday</option>
+                    <option value="wednesday" id="wednesday">Wednesday</option>
+                    <option value="thursday" id="thursday">Thursday</option>
+                    <option value="friday" id="friday">Friday</option>
+                    <option value="saturday" id="saturday">Saturday</option>
+                    <option value="sunday" id="sunday">Sunday</option>
+                </select>
+            </div>
+        </div>
+        <div class="pt-5">
+            <h2 class="text-center d-none">You don't teach any students on this date!</h2>
+            <div id="accordion">
+
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script type="module" src="/lessons.js"></script>
+    </body>
+
+    </html>

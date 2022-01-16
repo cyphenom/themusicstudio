@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" class="h-75">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Login Page</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+</head>
+
+<body class="h-100">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center justify-content-center">
+            <div class="col-lg-5">
+                <form method="POST" id="loginForm">
+                    <div class="row">
+                        <div class="col">
+                            <label for="email" class="m-1">Email:</label>
+                            <input type="email" class="form-control" name="email" id="email" required>
+                        </div>
+                    </div>
+                    <div class="row pt-3">
+                        <div class="col">
+                            <label for="password" class="m-1">Password:</label>
+                            <input type="password" class="form-control" name="password" id="password" required>
+                        </div>
+                    </div>
+                    <div class="row pt-5">
+                        <div class="col">
+                            <input type="submit" class="btn btn-success btn-block" id="loginBtn">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="/login.js"></script>
+    <script type="module" src="/utils.js"></script>
+</body>
+
+</html>
