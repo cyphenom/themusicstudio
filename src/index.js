@@ -92,6 +92,7 @@ router.route('/teacher/dashboard').get(function (req, res) {
 router.route('/teacher/students').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/students', {
+            instruments: result.instruments,
             siteName: result.siteName,
             pageName: "Students",
             fs: fs,
@@ -144,6 +145,7 @@ router.route('/teacher/lessons').get(function (req, res) {
 router.route('/teacher/settings').get(function (req, res) {
     if (req.session.teacher) {
         res.render('settings/settings', {
+            instruments: result.instruments,
             siteName: result.siteName,
             pageName: "Settings",
             fs: fs,
@@ -665,6 +667,9 @@ router.route('/teacher/process/deleteLesson').post(async function (req, res) {
         const lesson = await Lessons.findOneAndUpdate({
             userId: req.body.id
         }, {
+            $inc: {
+                lessons: 1
+            },
             prevLesson: lessons,
             prevDate: dates
         });

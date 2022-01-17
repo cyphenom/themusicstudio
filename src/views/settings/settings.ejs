@@ -111,11 +111,39 @@
                             <hr>
                             <form id="generalForm">
                                 <div class="form-group">
-                                    <label for="username">Site Name</label>
+                                    <label for="site-name">Site Name</label>
                                     <input type="text" class="form-control" id="site-name" name="siteName"
-                                        aria-describedby="siteNameHelp" placeholder="Site's name cannot exceed 12 characters">
+                                        aria-describedby="siteNameHelp"
+                                        placeholder="Site's name cannot exceed 12 characters" value="<%= siteName %>">
                                     <small id="siteNameHelp" class="form-text text-muted">This'll change the name of the
                                         site in the navigation bar.</small>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <label for="instruments">Instruments</label>
+                                    <div class="row" id="instruments">
+                                        <% for (var i=0; i < instruments.length; i++) { %>
+                                            <% if (i != instruments.length - 1) { %>
+                                                <div class="col-8 pb-2">
+                                                    <input type="text" class="form-control instrument" id="<%= instruments[i] %>"
+                                                        name="<%= instruments[i] %>" aria-describedby="instrumentsHelp"
+                                                        value="<%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %>">
+                                                </div>
+                                            <% } else { %>
+                                                <div class="col-8 pb-2">
+                                                    <input type="text" class="form-control instrument" id="<%= instruments[i] %>"
+                                                        name="<%= instruments[i] %>" aria-describedby="instrumentsHelp"
+                                                        value="<%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %>">
+                                                </div>
+                                                <div class="col-2 pb-2">
+                                                    <button class="btn btn-success btn-block actionBtns" type="button" id="addInstrumentBtn">Add</button>
+                                                </div>
+                                                <div class="col-2 pb-2">
+                                                    <button class="btn btn-danger btn-block actionBtns" type="button" id="delInstrumentBtn">Delete</button>
+                                                </div>
+                                            <% } %>
+                                        <% } %>
+                                    </div>
                                 </div>
                                 <button class="btn btn-success" type="button" id="generalBtn">Save</button>
                             </form>

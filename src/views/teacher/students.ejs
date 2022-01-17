@@ -41,9 +41,9 @@
                     <label class="m-1">Instrument</label>
                     <select name="instrument" id="instrument" class="form-control">
                         <option value="none" id="none">--Select One--</option>
-                        <option value="violin" id="violin">Violin</option>
-                        <option value="piano" id="violin">Piano</option>
-                        <option value="cello" id="cello">Cello</option>
+                        <% for (var i = 0; i < instruments.length; i++) { %>
+                            <option value="<%= instruments[i]  %>" id="<%= instruments[i]  %>"><%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %></option>
+                        <% } %>
                     </select>
                 </div>
                 <div class="col">
