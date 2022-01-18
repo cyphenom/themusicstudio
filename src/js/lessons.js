@@ -8,7 +8,7 @@ $(function () {
     const yyyy = today.getFullYear();
     fetchLessons(new Date().toLocaleString('en-us', { weekday: 'long' }).toLowerCase());
 
-    document.getElementById('date').valueAsDate = new Date();
+    $("#date").val(`${yyyy}-${mm}-${dd}`);
     $(`#${new Date().toLocaleString('en-us', { weekday: 'long' }).toLowerCase()}`).prop('selected', true);
 
     $("#day").change(function () {

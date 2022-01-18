@@ -2,16 +2,27 @@ import Utils from './utils.js';
 const Util = new Utils();
 
 $(function () {
-    // fetchSettings("general", function (result) {
-    //     $("#site-name").val(result.siteName);
-    // });
-
+    const instruemntAmt = $(".instrument").length;
+    
     $("#generalBtn").click(function (e) {
+        let instrumentInputs = "";
         e.preventDefault();
 
-        if ($("#site-name").val().length <= 12) {
-            Util.sweetAlert("custom", "Are you sure?", `You're changing the site name to ${$("#site-name").val()}`, 'Yes, save it!', 'Cancel', 'warning', function () {
-                Util.ajaxRequest("/teacher/process/editGeneralSettings", "POST", $("#generalForm").serialize(), function (response) {
+        const emptyCheck = $(".instrument").filter(function () {
+            return this.value != '';
+        });
+
+        for (let i = 0; i < emptyCheck.length; i++) {
+            instrumentInputs += `&instrument${i}=${emptyCheck[i].value}`;
+        }
+
+        if ($("#site-name").val().length > 12) {
+            Util.sweetAlert("error", "Operation Failed!", "Site's name maximum characters is 12");
+        } else if ($(".instrument").length - emptyCheck.length !== 0) {
+            Util.sweetAlert("error", "Operation Failed!", "You can't have an empty instrument input");
+        } else {
+            Util.sweetAlert("custom", "Are you sure?", `You're changing the site name to ${$("#site-name").val()} and adding ${$(".instrument").length - instruemntAmt} instruments`, 'Yes, save it!', 'Cancel', 'warning', function () {
+                Util.ajaxRequest("/teacher/process/editGeneralSettings", "POST", `siteName=${$("#site-name").val()}` + instrumentInputs + `&instrumentLength=${$(".instrument").length}`, function (response) {
                     if (response == "success") {
                         Util.sweetAlert("custom", "Updated!", "Your general settings have successfully been updated!", "Ok", "", "success", function () {
                             location.reload();
@@ -21,8 +32,6 @@ $(function () {
                     }
                 });
             });
-        } else {
-            Util.sweetAlert("error", "Operation Failed!", "Site's name maximum characters is 12");
         }
     });
 

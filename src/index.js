@@ -693,11 +693,22 @@ router.route('/teacher/process/fetchSettings').post(async function (req, res) {
 });
 
 router.route('/teacher/process/editGeneralSettings').post(async function (req, res) {
+    let instruments = [];
+
+    function generateInstruments () {
+        for (let i = 0; i < req.body.instrumentLength; i++) {
+            instruments.push(req.body[`instrument${i}`]);
+        }
+    }
+
     try {
+        generateInstruments();
+
         await Settings.findOneAndUpdate({
             type: "general"
         }, {
-            siteName: req.body.siteName
+            siteName: req.body.siteName,
+            instruments: instruments
         });
 
         await res.send("success");
