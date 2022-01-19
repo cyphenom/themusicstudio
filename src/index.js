@@ -52,7 +52,7 @@ router.route('/').get(function (req, res) {
     if (!req.session.teacher) {
         res.redirect('/teacher/login');
     } else {
-        res.redirect('/teacher/dashboard');
+        res.redirect('/teacher/lessons');
     }
 });
 
@@ -60,7 +60,7 @@ router.route('/teacher/login').get(function (req, res) {
     if (!req.session.teacher) {
         res.render('login');
     } else {
-        res.redirect('/teacher/dashboard');
+        res.redirect('/teacher/lessons');
     }
 });
 
@@ -76,11 +76,24 @@ fetchSettings("general").then(function (res) {
     result = res;
 });
 
-router.route('/teacher/dashboard').get(function (req, res) {
+router.route('/teacher/lessons').get(function (req, res) {
     if (req.session.teacher) {
-        res.render('teacher/dashboard', {
+        res.render('teacher/lessons', {
             siteName: result.siteName,
-            pageName: "Dashboard",
+            pageName: "Lessons",
+            fs: fs,
+            name: req.session.teacher.email
+        });
+    } else {
+        res.redirect('/teacher/login');
+    }
+});
+
+router.route('/teacher/schedules').get(function (req, res) {
+    if (req.session.teacher) {
+        res.render('teacher/schedules', {
+            siteName: result.siteName,
+            pageName: "Schedules",
             fs: fs,
             name: req.session.teacher.email
         });
@@ -103,19 +116,6 @@ router.route('/teacher/students').get(function (req, res) {
     }
 });
 
-router.route('/teacher/schedules').get(function (req, res) {
-    if (req.session.teacher) {
-        res.render('teacher/schedules', {
-            siteName: result.siteName,
-            pageName: "Schedules",
-            fs: fs,
-            name: req.session.teacher.email
-        });
-    } else {
-        res.redirect('/teacher/login');
-    }
-});
-
 router.route('/teacher/tuitions').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/tuitions', {
@@ -129,11 +129,11 @@ router.route('/teacher/tuitions').get(function (req, res) {
     }
 });
 
-router.route('/teacher/lessons').get(function (req, res) {
+router.route('/teacher/summary').get(function (req, res) {
     if (req.session.teacher) {
-        res.render('teacher/lessons', {
+        res.render('other/summary', {
             siteName: result.siteName,
-            pageName: "Lessons",
+            pageName: "Summary",
             fs: fs,
             name: req.session.teacher.email
         });
@@ -144,7 +144,7 @@ router.route('/teacher/lessons').get(function (req, res) {
 
 router.route('/teacher/settings').get(function (req, res) {
     if (req.session.teacher) {
-        res.render('settings/settings', {
+        res.render('other/settings', {
             instruments: result.instruments,
             siteName: result.siteName,
             pageName: "Settings",

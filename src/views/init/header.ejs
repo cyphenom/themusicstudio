@@ -54,11 +54,12 @@
                     <% var i = 0 %>
                     <% fs.readdirSync('src/views/teacher').forEach(file => { %>
                     <a href="<%= file.slice(0, -4) %>"
-                        class="list-group-item text-light sidebar-link <%= (pageName.toLowerCase() == file.slice(0, -4) ? 'sidebar-active' : '') %>"><i
+                        class="list-group-item text-light sidebar-link <%=  (pageName.toLowerCase() == file.slice(0, -4) ? 'sidebar-active' : '') %>"><i
                             class="<%= icons[i] %>"></i><span
                             id="link-text">&nbsp;&nbsp;<%= file.toUpperCase().slice(0, -4) %></span></a>
                     <%    i++; %>
                     <% }); %>
+                    <a href="summary" class="list-group-item text-light sidebar-link <%= (pageName.toLowerCase() == 'summary' ? 'sidebar-active' : '') %>"><i class="fas fa-file-alt"></i><span id="link-text">&nbsp;&nbsp;SUMMARY</span></a>
                     <a href="settings" class="list-group-item text-light sidebar-link <%= (pageName.toLowerCase() == 'settings' ? 'sidebar-active' : '') %>"><i class="fas fa-cog"></i><span id="link-text">&nbsp;&nbsp;SETTINGS</span></a>
                 </div>
             </div>

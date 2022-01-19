@@ -8,7 +8,7 @@ $(function () {
 
             Util.ajaxRequest("/teacher/process/login", "POST", $("#loginForm").serialize(), function (response) {
                 if (response == 'success') {
-                    location.href = '/teacher/dashboard';
+                    location.href = '/teacher/lessons';
                 } else {
                     alert("Username or password is incorrect!");
                 }
