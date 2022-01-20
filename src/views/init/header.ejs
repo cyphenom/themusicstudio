@@ -50,17 +50,13 @@
                     <h5 href="#" class="text-light text-center">Hello, <%= name.slice(0, 6) %></h5>
                 </div>
                 <div class="list-group list-group-flush">
-                    <% icons = ["fas fa-chart-line", "fas fa-chalkboard-teacher", "fas fa-calendar-alt", "fas fa-users", "fas fa-credit-card"] %>
-                    <% var i = 0 %>
-                    <% fs.readdirSync('src/views/teacher').forEach(file => { %>
-                    <a href="<%= file.slice(0, -4) %>"
-                        class="list-group-item text-light sidebar-link <%=  (pageName.toLowerCase() == file.slice(0, -4) ? 'sidebar-active' : '') %>"><i
-                            class="<%= icons[i] %>"></i><span
-                            id="link-text">&nbsp;&nbsp;<%= file.toUpperCase().slice(0, -4) %></span></a>
-                    <%    i++; %>
-                    <% }); %>
-                    <a href="summary" class="list-group-item text-light sidebar-link <%= (pageName.toLowerCase() == 'summary' ? 'sidebar-active' : '') %>"><i class="fas fa-file-alt"></i><span id="link-text">&nbsp;&nbsp;SUMMARY</span></a>
-                    <a href="settings" class="list-group-item text-light sidebar-link <%= (pageName.toLowerCase() == 'settings' ? 'sidebar-active' : '') %>"><i class="fas fa-cog"></i><span id="link-text">&nbsp;&nbsp;SETTINGS</span></a>
+                    <% icons = {"lessons": "fas fa-chalkboard-teacher", "schedules": "fas fa-calendar-alt", "students": "fas fa-users", "tuitions": "fas fa-credit-card", "summary": "fas fa-file-alt", "settings": "fas fa-cog"} %>
+                    <% for (let i = 0; i < sites.length; i++) { %>
+                        <a href="<%= sites[i].toLowerCase() %>"
+                            class="list-group-item text-light sidebar-link <%= (pageName.toLowerCase() == sites[i].toLowerCase() ? 'sidebar-active' : '') %>"><i
+                                class="<%= icons[sites[i].toLowerCase()] %>"></i><span
+                                id="link-text">&nbsp;&nbsp;<%= sites[i] %></span></a>
+                    <% } %>
                 </div>
             </div>
             <div class="col">

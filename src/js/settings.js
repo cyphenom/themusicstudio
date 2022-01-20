@@ -38,24 +38,17 @@ $(function () {
     $(document).on('click', '#addInstrumentBtn', function (e) {
         e.preventDefault();
 
-        $(".actionBtns").parent().remove();
+        $(".instrumentBtns").parent().remove();
         $("#instruments").append(
             $('<div class="col-8 pb-2" />').html('<input type="text" class="form-control instrument" aria-describedby="instrumentsHelp"></input>'),
-            $('<div class="col-2 pb-2" />').html('<button class="btn btn-success btn-block actionBtns" type="button" id="addInstrumentBtn">Add</button>'),
-            $('<div class="col-2 pb-2" />').html('<button class="btn btn-danger btn-block actionBtns" type="button" id="delInstrumentBtn">Delete</button>'),
+            $('<div class="col-2 pb-2" />').html('<button class="btn btn-success btn-block instrumentBtns" type="button" id="addInstrumentBtn">Add</button>'),
+            $('<div class="col-2 pb-2" />').html('<button class="btn btn-danger btn-block instrumentBtns" type="button" id="delInstrumentBtn">Delete</button>'),
         );
     });
 
     $(document).on('click', '#delInstrumentBtn', function (e) {
         e.preventDefault();
         
-        $(".instrument").last().parent().remove();
+        $(".tab").last().parent().remove();
     });
-
-
-    function fetchSettings(type, fn) {
-        Util.ajaxRequest("/teacher/process/fetchSettings", "POST", { type: type }, function (response) {
-            fn(JSON.parse(response))
-        });
-    }
 });

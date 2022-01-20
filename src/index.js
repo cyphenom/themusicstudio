@@ -82,7 +82,8 @@ router.route('/teacher/lessons').get(function (req, res) {
             siteName: result.siteName,
             pageName: "Lessons",
             fs: fs,
-            name: req.session.teacher.email
+            name: req.session.teacher.email,
+            sites: result.sites
         });
     } else {
         res.redirect('/teacher/login');
@@ -95,7 +96,8 @@ router.route('/teacher/schedules').get(function (req, res) {
             siteName: result.siteName,
             pageName: "Schedules",
             fs: fs,
-            name: req.session.teacher.email
+            name: req.session.teacher.email,
+            sites: result.sites
         });
     } else {
         res.redirect('/teacher/login');
@@ -109,7 +111,8 @@ router.route('/teacher/students').get(function (req, res) {
             siteName: result.siteName,
             pageName: "Students",
             fs: fs,
-            name: req.session.teacher.email
+            name: req.session.teacher.email,
+            sites: result.sites
         });
     } else {
         res.redirect('/teacher/login');
@@ -122,7 +125,8 @@ router.route('/teacher/tuitions').get(function (req, res) {
             siteName: result.siteName,
             pageName: "Tuitions",
             fs: fs,
-            name: req.session.teacher.email
+            name: req.session.teacher.email,
+            sites: result.sites
         });
     } else {
         res.redirect('/teacher/login');
@@ -131,11 +135,12 @@ router.route('/teacher/tuitions').get(function (req, res) {
 
 router.route('/teacher/summary').get(function (req, res) {
     if (req.session.teacher) {
-        res.render('other/summary', {
+        res.render('teacher/summary', {
             siteName: result.siteName,
             pageName: "Summary",
             fs: fs,
-            name: req.session.teacher.email
+            name: req.session.teacher.email,
+            sites: result.sites
         });
     } else {
         res.redirect('/teacher/login');
@@ -144,12 +149,13 @@ router.route('/teacher/summary').get(function (req, res) {
 
 router.route('/teacher/settings').get(function (req, res) {
     if (req.session.teacher) {
-        res.render('other/settings', {
+        res.render('teacher/settings', {
             instruments: result.instruments,
             siteName: result.siteName,
             pageName: "Settings",
             fs: fs,
-            name: req.session.teacher.email
+            name: req.session.teacher.email,
+            sites: result.sites
         });
     } else {
         res.redirect('/teacher/login');

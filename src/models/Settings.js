@@ -6,5 +6,6 @@ const {
 module.exports = model("settings", new Schema({
     type: String,
     siteName: String,
-    instruments: Array
+    instruments: Array,
+    sites: Array
 }));

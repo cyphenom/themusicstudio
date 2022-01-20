@@ -1,5 +1,5 @@
 <%- include('../init/header.ejs') %>
-
+<% var today = new Date(); var dd = String(today.getDate()).padStart(2, '0'); var mm = String(today.getMonth() + 1).padStart(2, '0'); var yyyy = today.getFullYear(); %>
     <div class="col-lg-12 pt-3">
         <div class="row gutters-sm">
             <div class="col-md-4 d-none d-md-block">
@@ -111,38 +111,22 @@
                             <hr>
                             <form id="generalForm">
                                 <div class="form-group">
-                                    <label for="site-name">Site Name</label>
-                                    <input type="text" class="form-control" id="site-name" name="siteName"
-                                        aria-describedby="siteNameHelp"
-                                        placeholder="Site's name cannot exceed 12 characters" value="<%= siteName %>">
-                                    <small id="siteNameHelp" class="form-text text-muted">This'll change the name of the
-                                        site in the navigation bar.</small>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label class="m-1">Starting Time</label>
+                                            <input type="date" class="form-control" name="start" id="start" required>
+                                        </div>
+                                        <div class="col">
+                                            <label class="m-1">Ending Time</label>
+                                            <input type="date" class="form-control" name="end" id="end" value="<%= yyyy %>-<%= mm %>-<%= dd %>" required >
+                                        </div>
+                                    </div>
                                 </div>
                                 <hr>
                                 <div class="form-group">
                                     <label for="instruments">Instruments</label>
                                     <div class="row" id="instruments">
-                                        <% for (var i=0; i < instruments.length; i++) { %>
-                                            <% if (i != instruments.length - 1) { %>
-                                                <div class="col-8 pb-2">
-                                                    <input type="text" class="form-control instrument" id="<%= instruments[i] %>"
-                                                        name="<%= instruments[i] %>" aria-describedby="instrumentsHelp"
-                                                        value="<%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %>">
-                                                </div>
-                                            <% } else { %>
-                                                <div class="col-8 pb-2">
-                                                    <input type="text" class="form-control instrument" id="<%= instruments[i] %>"
-                                                        name="<%= instruments[i] %>" aria-describedby="instrumentsHelp"
-                                                        value="<%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %>">
-                                                </div>
-                                                <div class="col-2 pb-2">
-                                                    <button class="btn btn-success btn-block actionBtns" type="button" id="addInstrumentBtn">Add</button>
-                                                </div>
-                                                <div class="col-2 pb-2">
-                                                    <button class="btn btn-danger btn-block actionBtns" type="button" id="delInstrumentBtn">Delete</button>
-                                                </div>
-                                            <% } %>
-                                        <% } %>
+                                        
                                     </div>
                                 </div>
                                 <button class="btn btn-success" type="button" id="generalBtn">Save</button>
@@ -318,7 +302,7 @@
     </div>
     </div>
 
-    <script type="module" src="/settings.js"></script>
+    <script type="module" src="/summary.js"></script>
     </body>
 
     </html>
