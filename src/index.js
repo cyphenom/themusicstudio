@@ -492,7 +492,7 @@ router.route('/teacher/process/sendInvoice').post(async function (req, res) {
                 rentalFee: tuition.rentalFee,
                 tuitionFee: `$${Number(tuition.tuition.slice(1)) * Number(tuition.lessons.slice(0, -8))}`,
                 specialFee: tuition.specialFee,
-                time: moment().format('MM/DD/YY'),
+                time: `${moment().format('YYYY-MM-DD')}T00:00:00.000+00:00`,
                 type: 'Invoice'
             });
             await history.save();
@@ -546,7 +546,7 @@ router.route('/teacher/process/sendReceipt').post(async function (req, res) {
                 rentalFee: tuition.rentalFee,
                 tuitionFee: `$${Number(tuition.tuition.slice(1)) * Number(tuition.lessons.slice(0, -8))}`,
                 specialFee: tuition.specialFee,
-                time: moment().format('MM/DD/YY'),
+                time: `${moment().format('YYYY-MM-DD')}T00:00:00.000+00:00`,
                 type: 'Receipt'
             });
             await history.save();
@@ -725,6 +725,21 @@ router.route('/teacher/process/editGeneralSettings').post(async function (req, r
     } catch (err) {
         throw err;
     } 
+});
+
+router.route('/teacher/process/fetchRangeHistory').post(async function (req, res) {
+    try {
+        const histories = await History.find({
+            time: {
+                $gte: new Date(req.body.start),
+                $lt: new Date(req.body.end)
+            },
+        });
+        
+        await res.send(JSON.stringify(histories));
+    } catch (err) {
+        throw err;
+    }
 });
 
 app.use('/', router);

@@ -13,6 +13,6 @@ module.exports = model("history", new Schema({
     rentalFee: String,
     tuitionFee: String,
     specialFee: String,
-    time: String,
+    time: Date,
     type: String,
 }));

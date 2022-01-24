@@ -2,5 +2,41 @@ import Utils from './utils.js';
 const Util = new Utils();
 
 $(function () {
+    fetchAttendance($("#start").val(), $("#end").val());
+
+    $("#start").on("input", function () {
+        fetchAttendance($("#start").val(), $("#end").val());
+    });
+
+    $("#end").on("input", function () {
+        fetchAttendance($("#start").val(), $("#end").val());
+    });
+
+    function fetchAttendance(start, end) {
+        Util.ajaxRequest("/teacher/process/fetchRangeHistory", "POST", { start: start, end: end }, function (response) {
+            response = JSON.parse(response);
+            let total = 0;
+            let tuitionTotal = 0;
+            let rentalTotal = 0;
+            let specialTotal = 0;
+
+            Util.generateTable(
+                response,
+                "#showIncome",
+                [],
+                ["name", "email", "grandTotal", "tuitionFee", "rentalFee", "specialFee", "time"]
+            );
+            
+            if (response.length) {
+                for (let i = 0; i < response.length; i++) {
+                    total += Number(response[i].grandTotal.slice(1));
+                    tuitionTotal += Number(response[i].tuitionFee.slice(1));
+                    rentalTotal += Number(response[i].rentalFee.slice(1));
+                    specialTotal += Number(response[i].specialFee.slice(1));
+                }
     
+                $("#incomeDesc").text(`Final Grand Total: ${total}, Tuition Total: ${tuitionTotal}, Rental Total: ${rentalTotal}, Special Total: ${specialTotal}`);
+            }
+        });
+    }
 });
