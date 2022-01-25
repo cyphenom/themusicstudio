@@ -2,18 +2,22 @@ import Utils from './utils.js';
 const Util = new Utils();
 
 $(function () {
-    fetchAttendance($("#start").val(), $("#end").val());
+    fetchAttendance($("#start").val(), $("#end").val(), $("#email").val());
 
     $("#start").on("input", function () {
-        fetchAttendance($("#start").val(), $("#end").val());
+        fetchAttendance($("#start").val(), $("#end").val(), $("#email").val());
     });
 
     $("#end").on("input", function () {
-        fetchAttendance($("#start").val(), $("#end").val());
+        fetchAttendance($("#start").val(), $("#end").val(), $("#email").val());
     });
 
-    function fetchAttendance(start, end) {
-        Util.ajaxRequest("/teacher/process/fetchRangeHistory", "POST", { start: start, end: end }, function (response) {
+    $("#email").on("input", function() {
+        fetchAttendance($("#start").val(), $("#end").val(), $("#email").val());
+    });
+
+    function fetchAttendance(start, end, email) {
+        Util.ajaxRequest("/teacher/process/fetchRangeHistory", "POST", { start: start, end: end, email: email }, function (response) {
             response = JSON.parse(response);
             let total = 0;
             let tuitionTotal = 0;

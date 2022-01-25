@@ -729,12 +729,24 @@ router.route('/teacher/process/editGeneralSettings').post(async function (req, r
 
 router.route('/teacher/process/fetchRangeHistory').post(async function (req, res) {
     try {
-        const histories = await History.find({
-            time: {
-                $gte: new Date(req.body.start),
-                $lt: new Date(req.body.end)
-            },
-        });
+        let histories;
+
+        if (req.body.email) {
+            histories = await History.find({
+                email: req.body.email,
+                time: {
+                    $gte: new Date(req.body.start),
+                    $lt: new Date(req.body.end)
+                }
+            });
+        } else {
+            histories = await History.find({
+                time: {
+                    $gte: new Date(req.body.start),
+                    $lt: new Date(req.body.end)
+                }
+            });
+        }
         
         await res.send(JSON.stringify(histories));
     } catch (err) {
