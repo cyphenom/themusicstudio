@@ -15,6 +15,22 @@ $(function () {
         fetchLessons($("#day").val());
     });
 
+    const convertTime12to24 = (time12h) => {
+        const [time, modifier] = time12h.split(' ');
+
+        let [hours, minutes] = time.split(':');
+
+        if (hours === '12') {
+            hours = '00';
+        }
+
+        if (modifier === 'pm') {
+            hours = parseInt(hours, 10) + 12;
+        }
+
+        return `${hours}:${minutes}`;
+    }
+
     $(document).on('click', '.saveLesson', function (e) {
         const userId = $(this).attr('id');
 
@@ -44,7 +60,7 @@ $(function () {
 
         e.preventDefault();
 
-        Util.sweetAlert("custom", "Are you sure?", `You're deleting a lesson for ${$(`#${details[1]}-name`).val()}`, 'Yes, deletee it!', 'Cancel', 'warning', function () {
+        Util.sweetAlert("custom", "Are you sure?", `You're deleting a lesson for ${$(`#${details[1]}-name`).val()}`, 'Yes, delete it!', 'Cancel', 'warning', function () {
             Util.ajaxRequest("/teacher/process/fetchLesson", "POST", { id: details[1] }, function (result) {
                 result = JSON.parse(result);
                 Util.ajaxRequest("/teacher/process/deleteLesson", "POST", { index: result.prevLesson.indexOf(details[0]), id: details[1], lessons: JSON.stringify(result.prevLesson), dates: JSON.stringify(result.prevDate) }, function (response) {
@@ -57,7 +73,6 @@ $(function () {
                 });
             });
         });
-
     });
 
     function fetchLessons(day) {
@@ -66,6 +81,11 @@ $(function () {
 
             $("#accordion").html("");
             if (response.length) {
+                response.sort(function (a, b) {
+                    a = convertTime12to24(a.start);
+                    b = convertTime12to24(b.start);
+                    return a.localeCompare(b);
+                });
                 for (let i = 0; i < response.length; i++) {
                     Util.ajaxRequest("/teacher/process/fetchLesson", "POST", { id: response[i].userId }, function (res) {
                         res = JSON.parse(res);

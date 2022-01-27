@@ -286,6 +286,7 @@ router.route('/teacher/process/editStudent').post(async function (req, res) {
             phoneNumber: req.body.phone_number,
             gender: req.body.sex,
             address: req.body.address,
+            instrument: req.body.instrument
         });
 
         if (student.name != req.body.name || student.email != req.body.email) {

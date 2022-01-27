@@ -42,7 +42,7 @@
                     <select name="instrument" id="instrument" class="form-control">
                         <option value="none" id="none">--Select One--</option>
                         <% for (var i = 0; i < instruments.length; i++) { %>
-                            <option value="<%= instruments[i]  %>" id="<%= instruments[i]  %>"><%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %></option>
+                            <option value="<%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %>" id="<%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1)%>"><%= instruments[i].charAt(0).toUpperCase() + instruments[i].slice(1) %></option>
                         <% } %>
                     </select>
                 </div>

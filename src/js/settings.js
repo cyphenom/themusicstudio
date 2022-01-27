@@ -49,6 +49,6 @@ $(function () {
     $(document).on('click', '#delInstrumentBtn', function (e) {
         e.preventDefault();
         
-        $(".tab").last().parent().remove();
+        $(".instrument").last().parent().remove();
     });
 });

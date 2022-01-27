@@ -54,6 +54,7 @@ $(function () {
             $("#password").attr('type', 'button').attr('class', 'btn btn-danger btn-block').attr('value', 'Change Password');
             $("#email").val(response.email);
             $(`#${response.gender}`).prop('selected', 'true');
+            $(`#${response.instrument}`).prop('selected', 'true');
             $("#phone-number").val(response.phoneNumber);
             $("#address").val(response.address);
         });
