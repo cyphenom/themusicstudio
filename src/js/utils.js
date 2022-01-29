@@ -21,7 +21,7 @@ export default class Util {
     }
 
     sweetAlert(type, title, description, confirmText, cancelText, icon, then, next) {
-        if (type == "custom") {
+        if (type === "custom") {
             Swal.fire({
                 title: title,
                 html: description,
@@ -37,6 +37,22 @@ export default class Util {
                 } else {
                     if (typeof next === 'function') {
                         next();
+                    }
+                }
+            });
+        } else if (type === "input") {
+            Swal.fire({
+                title: title,
+                icon: icon,
+                input: 'text',
+                inputLabel: description,
+                inputValue: "",
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'You need to write something!'
+                    } else {
+                        then(value)
                     }
                 }
             });

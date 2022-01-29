@@ -75,6 +75,22 @@ $(function () {
         });
     });
 
+    $(document).on('click', '.numberLessons', function (e) {
+        const details = $(this).attr('id').split("-");
+        e.preventDefault();
+
+        Util.sweetAlert("input", `${details[1]}'s Lessons`, `You're adjusting the lesson count for ${details[1]}`, '', '', 'warning', function (value) {
+            Util.ajaxRequest("/teacher/process/adjustLessonCount", "POST", { id: details[0], lessonCount: value }, function (result) {
+                if (result == "success") {
+                    Util.sweetAlert("success", "Adjusted!", "This lesson has successfully been adjusted!");
+                    fetchLessons($("#day").val());
+                } else {
+                    Util.sweetAlert("error", "Operation Failed!", "Something went wrong while trying to adjust that lesson!");
+                }
+            });
+        });
+    });
+
     function fetchLessons(day) {
         Util.ajaxRequest("/teacher/process/fetchLessons", "POST", { day: day }, function (response) {
             response = JSON.parse(response);
@@ -82,8 +98,11 @@ $(function () {
             $("#accordion").html("");
             if (response.length) {
                 response.sort(function (a, b) {
+                    console.log(a, b);
                     a = convertTime12to24(a.start);
                     b = convertTime12to24(b.start);
+                    console.log(a, b);
+                    
                     return a.localeCompare(b);
                 });
                 for (let i = 0; i < response.length; i++) {
@@ -103,7 +122,7 @@ $(function () {
                             $(`<div class='card-header' id='heading${i}' />`).append(
                                 $("<h5 class='mb-0' />").html(`
                                     <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="false" aria-controls="collapse${i}"> ${response[i].name}</button>
-                                    <button class="btn btn-link float-right"> ${res.lessons} lessons</button>
+                                    <button class="btn btn-link float-right numberLessons" id='${res._id}-${res.name}'> ${res.lessons} lessons</button>
                                 `),
                             ),
                             $(`<div id="collapse${i}" class="collapse" aria-labelledby="heading${i}" data-parent="#accordion">`).append(

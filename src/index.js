@@ -79,11 +79,11 @@ fetchSettings("general").then(function (res) {
 router.route('/teacher/lessons').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/lessons', {
-            siteName: result.siteName,
+            siteName: result.siteName || "Music Studio",
             pageName: "Lessons",
             fs: fs,
             name: req.session.teacher.email,
-            sites: result.sites
+            sites: result.sites || ["Lessons", "Schedules", "Students", "Tuitions", "Summary", "Settings"]
         });
     } else {
         res.redirect('/teacher/login');
@@ -93,11 +93,11 @@ router.route('/teacher/lessons').get(function (req, res) {
 router.route('/teacher/schedules').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/schedules', {
-            siteName: result.siteName,
+            siteName: result.siteName || "Music Studio",
             pageName: "Schedules",
             fs: fs,
             name: req.session.teacher.email,
-            sites: result.sites
+            sites: result.sites || ["Lessons", "Schedules", "Students", "Tuitions", "Summary", "Settings"]
         });
     } else {
         res.redirect('/teacher/login');
@@ -107,12 +107,12 @@ router.route('/teacher/schedules').get(function (req, res) {
 router.route('/teacher/students').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/students', {
-            instruments: result.instruments,
+            instruments: result.instruments || ["Violin", "Piano", "Cello"],
             siteName: result.siteName,
             pageName: "Students",
             fs: fs,
             name: req.session.teacher.email,
-            sites: result.sites
+            sites: result.sites || ["Lessons", "Schedules", "Students", "Tuitions", "Summary", "Settings"]
         });
     } else {
         res.redirect('/teacher/login');
@@ -122,11 +122,11 @@ router.route('/teacher/students').get(function (req, res) {
 router.route('/teacher/tuitions').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/tuitions', {
-            siteName: result.siteName,
+            siteName: result.siteName || "Music Studio",
             pageName: "Tuitions",
             fs: fs,
             name: req.session.teacher.email,
-            sites: result.sites
+            sites: result.sites || ["Lessons", "Schedules", "Students", "Tuitions", "Summary", "Settings"]
         });
     } else {
         res.redirect('/teacher/login');
@@ -136,11 +136,11 @@ router.route('/teacher/tuitions').get(function (req, res) {
 router.route('/teacher/summary').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/summary', {
-            siteName: result.siteName,
+            siteName: result.siteName || "Music Studio",
             pageName: "Summary",
             fs: fs,
             name: req.session.teacher.email,
-            sites: result.sites
+            sites: result.sites || ["Lessons", "Schedules", "Students", "Tuitions", "Summary", "Settings"]
         });
     } else {
         res.redirect('/teacher/login');
@@ -150,12 +150,12 @@ router.route('/teacher/summary').get(function (req, res) {
 router.route('/teacher/settings').get(function (req, res) {
     if (req.session.teacher) {
         res.render('teacher/settings', {
-            instruments: result.instruments,
-            siteName: result.siteName,
+            instruments: result.instruments || ["Violin", "Piano", "Cello"],
+            siteName: result.siteName || "Music Studio",
             pageName: "Settings",
             fs: fs,
             name: req.session.teacher.email,
-            sites: result.sites
+            sites: result.sites || ["Lessons", "Schedules", "Students", "Tuitions", "Summary", "Settings"]
         });
     } else {
         res.redirect('/teacher/login');
@@ -589,6 +589,19 @@ router.route('/teacher/process/fetchFullHistory').post(async function (req, res)
     }
 });
 
+router.route('/teacher/process/fetchAllLessons').post(async function (req, res) {
+    try {
+        const lessons = await Lessons.find({
+            disabled: false
+        });
+
+        await res.send(JSON.stringify(lessons));
+    } catch (err) {
+        throw err;
+    }
+});
+
+
 router.route('/teacher/process/fetchLessons').post(async function (req, res) {
     try {
         const schedules = await Schedules.find({
@@ -659,9 +672,9 @@ router.route('/teacher/process/deleteLesson').post(async function (req, res) {
 
     function deleteLesson(lessons, dates) {
         lessons.splice(req.body.index, 1);
-        lessons.push(" ");
+        lessons.push("");
         dates.splice(req.body.index, 1);
-        dates.push(" ");
+        dates.push("");
     }
 
     try {
@@ -750,6 +763,20 @@ router.route('/teacher/process/fetchRangeHistory').post(async function (req, res
         }
         
         await res.send(JSON.stringify(histories));
+    } catch (err) {
+        throw err;
+    }
+});
+
+router.route('/teacher/process/adjustLessonCount').post(async function (req, res) {
+    try {
+        await Lessons.findOneAndUpdate({
+            _id: req.body.id
+        }, {
+            lessons: Number(req.body.lessonCount)
+        });
+
+        await res.send("success");
     } catch (err) {
         throw err;
     }

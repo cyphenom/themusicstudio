@@ -10,5 +10,5 @@ module.exports = model("lessons", new Schema({
     prevLesson: Array,
     prevDate: Array,
     lessons: Number,
-    deleted: { type: Boolean, default: false }
+    disabled: { type: Boolean, default: false }
 }));
