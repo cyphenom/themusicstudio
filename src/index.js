@@ -237,6 +237,9 @@ router.route('/teacher/process/createStudent').post(async function (req, res) {
             userId: student._id,
             name: req.body.name,
             email: req.body.email,
+            day: "",
+            start: "",
+            end: "",
             prevLesson: ["This student doesn't have a previous lesson", "This student doesn't have a previous lesson", "This student doesn't have a previous lesson", "This student doesn't have a previous lesson"],
             prevDate: ["", "", "", ""],
             lessons: 0
@@ -396,6 +399,14 @@ router.route('/teacher/process/editSchedule').post(async function (req, res) {
                 userId: schedule.userId
             }, {
                 lessonDuration: `${((Number(duration.hours()) * 60) + Number(duration.minutes())).toString()} minutes`
+            });
+
+            await Lessons.findOneAndUpdate({
+                userId: schedule.userId
+            }, {
+                day: req.body.day,
+                start: moment(req.body.start, "HH:mm").format("hh:mm a"),
+                end: moment(req.body.end, "HH:mm").format("hh:mm a")
             });
 
             await res.send("success");
@@ -604,12 +615,12 @@ router.route('/teacher/process/fetchAllLessons').post(async function (req, res) 
 
 router.route('/teacher/process/fetchLessons').post(async function (req, res) {
     try {
-        const schedules = await Schedules.find({
+        const lessons = await Lessons.find({
             day: req.body.day,
             disabled: false
         });
 
-        await res.send(JSON.stringify(schedules));
+        await res.send(JSON.stringify(lessons));
     } catch (err) {
         throw err;
     }
