@@ -141,7 +141,7 @@ $(function () {
                     $("#accordion").append(
                         $(`<div class='card-header' id='heading${i}' />`).append(
                             $("<h5 class='mb-0' />").html(`
-                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="false" aria-controls="collapse${i}"> ${response[i].name}</button>
+                                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapse${i}" aria-expanded="false" aria-controls="collapse${i}"> ${response[i].start} ${response[i].name}</button>
                                     <button class="btn btn-link float-right numberLessons" id='${response[i]._id}-${response[i].name}'> ${response[i].lessons} lessons</button>
                                 `),
                         ),
