@@ -504,7 +504,7 @@ router.route('/teacher/process/sendInvoice').post(async function (req, res) {
                 rentalFee: tuition.rentalFee,
                 tuitionFee: `$${Number(tuition.tuition.slice(1)) * Number(tuition.lessons.slice(0, -8))}`,
                 specialFee: tuition.specialFee,
-                time: `${moment().format('YYYY-MM-DD')}T00:00:00.000+00:00`,
+                time: new Date(`${moment().format('YYYY-MM-DD')}T00:00:00.000+00:00`),
                 type: 'Invoice'
             });
             await history.save();
@@ -558,7 +558,7 @@ router.route('/teacher/process/sendReceipt').post(async function (req, res) {
                 rentalFee: tuition.rentalFee,
                 tuitionFee: `$${Number(tuition.tuition.slice(1)) * Number(tuition.lessons.slice(0, -8))}`,
                 specialFee: tuition.specialFee,
-                time: `${moment().format('YYYY-MM-DD')}T00:00:00.000+00:00`,
+                time: new Date(`${moment().format('YYYY-MM-DD')}T00:00:00.000+00:00`),
                 type: 'Receipt'
             });
             await history.save();
