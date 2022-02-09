@@ -7,7 +7,7 @@
 <% } else { %>
 <% month = today.getMonth(); %>
 <% } %>
-<% var dd = String(today.getDate()).padStart(2, '0'); var mm = String(today.getMonth() + 1).padStart(2, '0'); var yyyy = today.getFullYear(); var prevmm = String(month).padStart(2, '0'); %>
+<% var dd = String(today.getDate() + 1).padStart(2, '0'); var mm = String(today.getMonth() + 1).padStart(2, '0'); var yyyy = today.getFullYear(); var prevmm = String(month).padStart(2, '0'); %>
 <div class="col-lg-12 pt-3">
     <div class="row gutters-sm">
         <div class="col-md-4 d-none d-md-block">
@@ -117,7 +117,7 @@
                                     <div class="col">
                                         <label class="m-1">Starting Time</label>
                                         <input type="date" class="form-control" name="start" id="start"
-                                            value="<%= year %>-<%= prevmm %>-<%= dd %>" required>
+                                            value="<%= yyyy %>-<%= prevmm %>-<%= dd %>" required>
                                     </div>
                                     <div class="col">
                                         <label class="m-1">Ending Time</label>
